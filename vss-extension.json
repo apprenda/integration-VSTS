@@ -1,0 +1,49 @@
+{
+    "manifestVersion": 1,
+    "id": "build-tasks",
+    "name": "Apprenda Build Tasks",
+    "version": "0.0.1",
+    "publisher": "Apprenda",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],    
+    "description": "Tools for packaging and deploying .NET applications to Apprenda Cloud Platform.",
+    "categories": [
+        "Build and release"
+    ],
+    "icons": {
+        "default": "extension-icon.png"        
+    },
+    "files": [
+        {
+            "path": "NewPackage"
+        },
+        {
+            "path": "DeployPackage"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "apprenda-new-package",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "NewPackage"
+            }
+        },
+        {
+            "id": "apprenda-deploy-package",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "DeployPackage"
+            }
+        }
+    ]
+}
