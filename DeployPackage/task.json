@@ -3,17 +3,17 @@
     "name": "CreateApprendaPackage",
     "friendlyName": "Create Apprenda Package",
     "description": "Create an Apprenda Package",
-    "helpMarkDown": "[More Information](https://go.microsoft.com/fwlink/?LinkID=613736)",
+    "helpMarkDown": "[More Information](https://github.com/apprenda/integration-VSTS#integration-vsts)",
     "category": "Utility",
     "visibility": [
         "Build",
         "Release"
     ],
-    "author": "Microsoft Corporation",
+    "author": "Apprenda",
     "version": {
-        "Major": 1,
+        "Major": 0,
         "Minor": 1,
-        "Patch": 4
+        "Patch": 1
     },
     "demands": [
         "DotNetFramework"

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E844811E-7347-4551-B3F8-D60A790D675D}"
+	ProjectSection(SolutionItems) = preProject
+		extension-icon.png = extension-icon.png
+		README.md = README.md
+		vss-extension.json = vss-extension.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NewPackage", "NewPackage", "{9F591E63-C15E-4C6B-8D0F-9DB91F91FB6D}"
+	ProjectSection(SolutionItems) = preProject
+		NewPackage\task.json = NewPackage\task.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DeployPackage", "DeployPackage", "{7B13DBEE-D3CB-47B1-A92F-389E312ED16B}"
+	ProjectSection(SolutionItems) = preProject
+		DeployPackage\task.json = DeployPackage\task.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9F591E63-C15E-4C6B-8D0F-9DB91F91FB6D} = {E844811E-7347-4551-B3F8-D60A790D675D}
+		{7B13DBEE-D3CB-47B1-A92F-389E312ED16B} = {E844811E-7347-4551-B3F8-D60A790D675D}
+	EndGlobalSection
+EndGlobal

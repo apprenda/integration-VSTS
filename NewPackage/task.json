@@ -1,0 +1,133 @@
+{
+    "id": "A50EABC6-C8ED-433F-AEF6-84A22CF48AEA",
+    "name": "CreateApprendaPackage",
+    "friendlyName": "Create Apprenda Package",
+    "description": "Create an Apprenda Package",
+    "helpMarkDown": "[More Information](https://github.com/apprenda/integration-VSTS#integration-vsts)",
+    "category": "Utility",
+    "visibility": [
+        "Build",
+        "Release"
+    ],
+    "author": "Apprenda",
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 1
+    },
+    "demands": [
+        "DotNetFramework"
+    ],
+    "minimumAgentVersion": "1.102",
+    "groups": [
+        {
+            "name": "advanced",
+            "displayName": "Advanced",
+            "isExpanded": false
+        }
+    ],
+    "inputs": [
+        {
+            "name": "solutionPath",
+            "type": "filePath",
+            "label": "Solution Path",
+            "required": true,
+            "helpMarkDown": "The solution file for the solution to package."
+        },
+        {
+            "name": "privateUI",
+            "type": "string",
+            "label": "Private UIs",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "A comma-separated list of project names that need to be considered as private UIs."
+        },
+        {
+            "name": "publicUI",
+            "type": "string",
+            "label": "Public UIs",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "A comma-separated list of project names that need to be considered as public UIs."
+        },
+        {
+            "name": "privateRoot",
+            "type": "string",
+            "label": "Private Root",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "The project name that needs to be considered as the main private root."
+        },
+        {
+            "name": "publicRoot",
+            "type": "string",
+            "label": "Public Root",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "The project name that needs to be considered as the main public root."
+        },
+        {
+            "name": "wcfService",
+            "type": "string",
+            "label": "WCF Services",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "A comma-separated list of project names that need to be considered as WCF Services."
+        },
+        {
+            "name": "windowsService",
+            "type": "string",
+            "label": "Windows Services",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "A comma-separated list of project names that need to be considered as Windows Services."
+        },
+        {
+            "name": "configuration",
+            "type": "string",
+            "label": "Build Configuration",
+            "defaultValue":  "Release",
+            "required": false,
+            "helpMarkDown": "The solution file for the solution to package.",
+            "groupName":  "advanced"
+        },
+        {
+            "name": "build",
+            "type": "boolean",
+            "label": "Rebuild before Packaging",
+            "defaultValue": false,
+            "required": false,
+            "helpMarkDown": "Rebuild before Packaging",
+            "groupName":  "advanced"
+        },
+        {
+            "name": "workingFolder",
+            "type": "filePath",
+            "label": "Working folder",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Current working directory when script is run.  Defaults to the folder where the script is located.",
+            "groupName": "advanced"
+        },
+        {
+            "name": "failOnStandardError",
+            "type": "boolean",
+            "label": "Fail on Standard Error",
+            "defaultValue": "true",
+            "required": false,
+            "helpMarkDown": "If this is true, this task will fail if any errors are written to the error pipeline, or if any data is written to the Standard Error stream. Otherwise the task will rely solely on $LASTEXITCODE and the exit code to determine failure.",
+            "groupName": "advanced"
+        }
+    ],
+    "instanceNameFormat": "PowerShell Script",
+    "execution": {
+        "PowerShellExe": {
+            "target": "NewPackage.ps1",
+            "argumentFormat": "-SolutionPath $(solutionPath) -OutputPath $(Build.StagingDirectory)\Archive.zip -Build $(build) -Configuration $(configuration) -PrivateUI $(privateUI) -PrivateRoot $(privateRoot) -PublicUI $(publicUI) -PublicRoot $(publicRoot) -WcfService $(wcfService) -WindowsService $(windowsService)",
+            "workingDirectory": "$(workingFolder)",
+            "inlineScript": "",
+            "scriptType": "filePath",
+            "failOnStandardError": "$(failOnStandardError)"
+        }
+    }
+}

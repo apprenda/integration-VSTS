@@ -7,6 +7,9 @@
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
+        },
+        {
+            "id": "Microsoft.VisualStudio.Services.Cloud"
         }
     ],    
     "description": "Tools for packaging and deploying .NET applications to Apprenda Cloud Platform.",
@@ -22,6 +25,9 @@
         },
         {
             "path": "DeployPackage"
+        },
+        { 
+            "path":  "Apprenda"
         }
     ],
     "contributions": [
