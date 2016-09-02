@@ -31,11 +31,6 @@ param(
     $WindowsService
 )
 
-$PrivateUIs = $PrivateUI -split ","
-$PublicUIs = $PublicUI -split ","
-$WcfServices = $WcfService -split ","
-$WindowsServices = $WindowsService -split ","
-
 $cmd = @"
 & "$PSScriptRoot\..\Apprenda\acs.exe" NewPackage -Sln "$SolutionPath" -O "$OutputPath" -Config "$Configuration"
 "@
@@ -45,15 +40,15 @@ if($Build)
     $cmd += " -b"
 }
 
-if($PrivateUIs.Length -gt 0)
+if(-not [System.String]::IsNullOrEmpty($PrivateUI))
 {
     
-    $cmd += " -I $([System.String]::Join(",", $PrivateUIs))"
+    $cmd += " -I $PrivateUI"
 }
 
-if($PublicUIs.Length -gt 0)
+if(-not [System.String]::IsNullOrEmpty($PublicUI))
 {
-    $cmd += " -Pi $([System.String]::Join(",", $PublicUIs))"
+    $cmd += " -Pi $PublicUI"
 }
 
 if(-not [System.String]::IsNullOrEmpty($PrivateRoot))
@@ -70,14 +65,15 @@ if(-not [System.String]::IsNullOrEmpty($PublicRoot))
 "@
 }
 
-if($WcfServices.Length -gt 0)
+if(-not [System.String]::IsNullOrEmpty($WcfService))
 {
-    $cmd += " -S $([System.String]::Join(",", $WcfServices))"
+    $cmd += " -S $WcfService"
 }
 
-if($WindowsServices.Length -gt 0)
+if(-not [System.String]::IsNullOrEmpty($WindowsService))
 {
-    $cmd += " -WS $([System.String]::Join(",", $WindowsServices))"
+    $cmd += " -WS $WindowsService"
 }
+
 
 iex $cmd

@@ -2,14 +2,11 @@
     "manifestVersion": 1,
     "id": "build-tasks",
     "name": "Apprenda Build Tasks",
-    "version": "0.0.1",
-    "publisher": "Apprenda",
+    "version": "0.0.6",
+    "publisher": "pvandorp",
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
-        },
-        {
-            "id": "Microsoft.VisualStudio.Services.Cloud"
         }
     ],    
     "description": "Tools for packaging and deploying .NET applications to Apprenda Cloud Platform.",
