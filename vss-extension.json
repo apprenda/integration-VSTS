@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
-    "id": "build-tasks-apprenda-651",
-    "name": "Built Tasks for Apprenda 6.5.1",
+    "id": "build-tasks-apprenda-652",
+    "name": "Built Tasks for Apprenda 6.5.2",
     "version": "1.0.0",
     "publisher": "pvandorp",
     "targets": [
