@@ -6,8 +6,8 @@ param(
     [string]
     $OutputPath,
     [Parameter(Mandatory = $false)]
-    [bool]
-    $Build = $false,
+    [string]
+    $Build = "false",
     [Parameter(Mandatory = $false)]
     [string]
     $Configuration = "Release",
@@ -28,14 +28,16 @@ param(
     $WcfService,
     [Parameter(Mandatory = $false)]
     [string]
-    $WindowsService
+    $WindowsService,
+	[string]
+	$additionalParams
 )
 
 $cmd = @"
-& "$PSScriptRoot\..\Apprenda\acs.exe" NewPackage -Sln "$SolutionPath" -O "$OutputPath" -Config "$Configuration"
+& "$PSScriptRoot\Apprenda\acs.exe" NewPackage -Sln "$SolutionPath" -O "$OutputPath" -Config "$Configuration"
 "@
 
-if($Build)
+if([System.Convert]::ToBoolean($Build))
 {
     $cmd += " -b"
 }
@@ -43,12 +45,16 @@ if($Build)
 if(-not [System.String]::IsNullOrEmpty($PrivateUI))
 {
     
-    $cmd += " -I $PrivateUI"
+    $cmd += @"
+ -I "$PrivateUI"
+"@
 }
 
 if(-not [System.String]::IsNullOrEmpty($PublicUI))
 {
-    $cmd += " -Pi $PublicUI"
+    $cmd += @"
+ -PI "$PublicUI"
+"@
 }
 
 if(-not [System.String]::IsNullOrEmpty($PrivateRoot))
@@ -67,13 +73,18 @@ if(-not [System.String]::IsNullOrEmpty($PublicRoot))
 
 if(-not [System.String]::IsNullOrEmpty($WcfService))
 {
-    $cmd += " -S $WcfService"
+	$cmd += @"
+ -S "$WcfService"
+"@
 }
 
 if(-not [System.String]::IsNullOrEmpty($WindowsService))
 {
-    $cmd += " -WS $WindowsService"
+    $cmd += @"
+ -WS "$WindowsService"
+"@
 }
 
+Write-Host "Executing Command: $cmd"
 
 iex $cmd

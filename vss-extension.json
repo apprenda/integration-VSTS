@@ -1,8 +1,8 @@
 {
     "manifestVersion": 1,
-    "id": "build-tasks",
-    "name": "Apprenda Build Tasks",
-    "version": "0.0.6",
+    "id": "build-tasks-apprenda-651",
+    "name": "Built Tasks for Apprenda 6.5.1",
+    "version": "1.0.0",
     "publisher": "pvandorp",
     "targets": [
         {
@@ -18,13 +18,13 @@
     },
     "files": [
         {
-            "path": "NewPackage"
+            "path": "NewPackage", "addressable":  true
         },
         {
-            "path": "DeployPackage"
+            "path": "DeployPackage", "addressable":  true
         },
         { 
-            "path":  "Apprenda"
+            "path":  "extension-icon.png", "addressable":  true
         }
     ],
     "contributions": [

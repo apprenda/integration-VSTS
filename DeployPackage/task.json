@@ -1,19 +1,19 @@
 {
-    "id": "A50EABC6-C8ED-433F-AEF6-84A22CF48AEA",
-    "name": "CreateApprendaPackage",
-    "friendlyName": "Create Apprenda Package",
-    "description": "Create an Apprenda Package",
+    "id": "7B73CEB7-86B3-4673-9C86-FAF8CFBA71F4",
+    "name": "DeployPackage",
+    "friendlyName": "Deploy Apprenda Package",
+    "description": "Deploy an Apprenda deployment package.",
     "helpMarkDown": "[More Information](https://github.com/apprenda/integration-VSTS#integration-vsts)",
-    "category": "Utility",
+    "category": "Deploy",
     "visibility": [
         "Build",
         "Release"
     ],
     "author": "Apprenda",
     "version": {
-        "Major": 0,
-        "Minor": 1,
-        "Patch": 2
+        "Major": 1,
+        "Minor": 0,
+        "Patch": 0
     },
     "demands": [
         "DotNetFramework"
@@ -28,76 +28,77 @@
     ],
     "inputs": [
         {
-            "name": "scriptType",
-            "type": "pickList",
-            "label": "Type",
-            "defaultValue": "filePath",
-            "required": true,
-            "helpMarkDown": "Type of the script: File Path or Inline Script",
-            "options": {
-                "inlineScript": "Inline Script",
-                "filePath": "File Path"
-            }
-        },
-        {
-            "name": "scriptName",
+            "name": "ArchivePath",
             "type": "filePath",
-            "label": "Script Path",
-            "defaultValue": "",
+            "label": "Archive Path",
+            "defaultValue": "$(Build.StagingDirectory)\\Archive.zip",
             "required": true,
-            "visibleRule": "scriptType = filePath",
-            "helpMarkDown": "Path of the script to execute. Should be fully qualified path or relative to the default working directory."
+            "helpMarkDown": "Path to the Apprenda deployment package."
         },
         {
-            "name": "arguments",
+            "name": "ApplicationName",
             "type": "string",
-            "label": "Arguments",
+            "label": "Application Name",
             "defaultValue": "",
-            "required": false,
-            "helpMarkDown": "Arguments passed to the PowerShell script.  Either ordinal parameters or named parameters"
-        },
-        {
-            "name": "workingFolder",
-            "type": "filePath",
-            "label": "Working folder",
-            "defaultValue": "",
-            "required": false,
-            "helpMarkDown": "Current working directory when script is run.  Defaults to the folder where the script is located.",
-            "groupName": "advanced"
-        },
-        {
-            "name": "inlineScript",
-            "type": "multiLine",
-            "label": "Inline Script",
-            "defaultValue": "# You can write your powershell scripts inline here. \n# You can also pass predefined and custom variables to this scripts using arguments\n\n Write-Host \"Hello World\"",
             "required": true,
-            "helpMarkDown": "",
-            "visibleRule": "scriptType = inlineScript",
-            "properties": {
-                "resizable": "true",
-                "rows": "10",
-                "maxLength": "500"
-            }
+            "helpMarkDown": "Name of the application in Apprenda."
         },
         {
-            "name": "failOnStandardError",
-            "type": "boolean",
-            "label": "Fail on Standard Error",
-            "defaultValue": "true",
-            "required": false,
-            "helpMarkDown": "If this is true, this task will fail if any errors are written to the error pipeline, or if any data is written to the Standard Error stream. Otherwise the task will rely solely on $LASTEXITCODE and the exit code to determine failure.",
-            "groupName": "advanced"
+            "name": "ApplicationAlias",
+            "type": "string",
+            "label": "Application Alias",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Alias of the application in Apprenda. This has to be an alphanumeric lowercase value of 15 characters max."
+        },
+        {
+            "name": "VersionName",
+            "type": "string",
+            "label": "Version Name",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Name of the version in Apprenda."
+        },
+        {
+            "name": "VersionAlias",
+            "type": "string",
+            "label": "Version Alias",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Alias of the version in Apprenda. This has to be an alphanumeric value of 15 characters max."
+        }
+        ,
+        {
+            "name": "Username",
+            "type": "string",
+            "label": "Username",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "The username of an Apprenda user that is allowed to deploy applications."
+        },
+        {
+            "name": "Password",
+            "type": "string",
+            "label": "Password",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "The password of the Apprenda user that is allowed to deploy applications."
+        },
+        {
+            "name": "CloudUrl",
+            "type": "string",
+            "label": "Cloud Url",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "The Cloud Url as configured in Apprenda. (e.g. https://apps.mycloud.myorganization.com)"
         }
     ],
-    "instanceNameFormat": "Create Apprenda Package",
+    "instanceNameFormat": "Deploy an Apprenda deployment package",
     "execution": {
-        "PowerShellExe": {
-            "target": "$(scriptName)",
-            "argumentFormat": "$(arguments)",
-            "workingDirectory": "$(workingFolder)",
-            "inlineScript": "$(inlineScript)",
-            "scriptType": "$(scriptType)",
-            "failOnStandardError": "$(failOnStandardError)"
+        "PowerShell": {
+            "target": "$(currentDirectory)\\DeployPackage.ps1",
+            "argumentFormat": "",
+            "workingDirectory": "$(currentDirectory)"
         }
     }
 }

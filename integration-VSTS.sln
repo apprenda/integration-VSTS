@@ -5,6 +5,7 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E844811E-7347-4551-B3F8-D60A790D675D}"
 	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
 		extension-icon.png = extension-icon.png
 		README.md = README.md
 		vss-extension.json = vss-extension.json
@@ -24,6 +25,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DeployPackage", "DeployPack
 		DeployPackage\task.json = DeployPackage\task.json
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apprenda", "Apprenda", "{B3FE3FB3-0E5A-463A-9A2C-184231248145}"
+	ProjectSection(SolutionItems) = preProject
+		DeployPackage\Apprenda\acs.exe = DeployPackage\Apprenda\acs.exe
+		DeployPackage\Apprenda\acs.exe.config = DeployPackage\Apprenda\acs.exe.config
+		DeployPackage\Apprenda\log4net.dll = DeployPackage\Apprenda\log4net.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apprenda", "Apprenda", "{5888AC9B-CB3D-4628-B0AC-1E64C74FCB15}"
+	ProjectSection(SolutionItems) = preProject
+		NewPackage\Apprenda\acs.exe = NewPackage\Apprenda\acs.exe
+		NewPackage\Apprenda\acs.exe.config = NewPackage\Apprenda\acs.exe.config
+		NewPackage\Apprenda\log4net.dll = NewPackage\Apprenda\log4net.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -31,5 +46,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9F591E63-C15E-4C6B-8D0F-9DB91F91FB6D} = {E844811E-7347-4551-B3F8-D60A790D675D}
 		{7B13DBEE-D3CB-47B1-A92F-389E312ED16B} = {E844811E-7347-4551-B3F8-D60A790D675D}
+		{B3FE3FB3-0E5A-463A-9A2C-184231248145} = {7B13DBEE-D3CB-47B1-A92F-389E312ED16B}
+		{5888AC9B-CB3D-4628-B0AC-1E64C74FCB15} = {9F591E63-C15E-4C6B-8D0F-9DB91F91FB6D}
 	EndGlobalSection
 EndGlobal

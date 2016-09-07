@@ -9,22 +9,25 @@
 #   Before running this script you will want to make sure acs is in your $env:Path and that your cloud is registered
 
 param (
-    [string]$appName= $(throw 'Usage: ACS_Application_Deployment.ps1 appName appAlias verAlias archive username password envUrl'),
-    [string]$appAlias= $(throw 'Usage: ACS_Application_Deployment.ps1 appName appAlias verAlias archive username password envUrl'),  
-    [string]$verAlias= $(throw 'Usage: ACS_Application_Deployment.ps1 appName appAlias verAlias archive username password envUrl'),  
-	[string]$archive= $(throw 'Usage: ACS_Application_Deployment.ps1 appName appAlias verAlias archive username password envUrl'),
-	[string]$username= $(throw 'Usage: ACS_Application_Deployment.ps1 appName appAlias verAlias archive username password envUrl'),
-	[string]$password= $(throw 'Usage: ACS_Application_Deployment.ps1 appName appAlias verAlias archive username password envUrl'),
-	[string]$envUrl = $(throw 'Usage: ACS_Application_Deployment.ps1 appName appAlias verAlias archive username password envUrl')
+    [string]$ApplicationName,
+    [string]$ApplicationAlias,  
+    [string]$VersionAlias,
+	[string]$VersionName,
+	[string]$ArchivePath,
+	[string]$Username,
+	[string]$Password,
+	[string]$CloudUrl,
+	[string]$additionalParams
 )
 
 ##############################################################
 # F U N C T I O N S
 ##############################################################
-function ApplicationExists($alias)
+function ApplicationExists($Alias)
 {    
-    
-    $acsResponse = acs GetStatistics -aa $alias
+	Write-Host "Checking application exists..."
+	$Response = .\Apprenda\acs.exe GetStatistics -appAlias "$Alias"
+
     if ($?) 
     {
         Write-Host "Application found"
@@ -37,23 +40,23 @@ function ApplicationExists($alias)
     }
 }
 
-function CreateApplication($appAlias, $verAlias, $appName, $archive)
+function CreateApplication($ApplicationAlias, $ApplicationName, $ArchivePath)
 {
     Write-Host "Creating Application..."
-    Write-Host "appAlias: $appAlias" 
-    Write-Host "verAlias: $verAlias"
-    Write-Host "appName: $appName"
-    Write-Host "archive: $archive"
+    Write-Host "Application Alias: $ApplicationAlias" 
+    Write-Host "Application Name: $ApplicationName"
+    Write-Host "Archive Location: $ArchivePath"
 
-    acs NewApplication -aa $appAlias -an $appName -s Published -pkg $archive
-    
+	.\Apprenda\acs.exe NewApplication -appAlias "$ApplicationAlias" -appName "$ApplicationName" -stage "Published" -package "$ArchivePath"
+
     Write-Host "Application created"
 }
 
-function VersionApplication($appAlias, $verAlias, $archive)
+function VersionApplication($ApplicationAlias, $VersionAlias, $VersionName, $ArchivePath)
 {
     Write-Host "Creating new version..."
-    acs NewVersion -aa $appAlias -va $verAlias -s Published -Package $archive
+	.\Apprenda\acs.exe NewVersion -appAlias "$ApplicationAlias" -versionAlias "$VersionAlias" -versionName "$VersionName" -stage "Published" -Package "$ArchivePath"
+
     Write-Host "New version created"
 }
 
@@ -62,17 +65,23 @@ function VersionApplication($appAlias, $verAlias, $archive)
 # M A I N
 ##############################################################
 
+Write-Host "Password: $Password"
 
-acs RegisterCloud -url $envUrl -alias environment
-acs ConnectCloud -CloudAlias environment -user $username -password $password 
+Write-Host "Registering Cloud [$CloudUrl]..."
+.\Apprenda\acs.exe RegisterCloud -url "$CloudUrl" -alias "environment"
 
-if (ApplicationExists($appAlias))
+Write-Host "Connecting to Cloud [$CloudUrl]..."
+.\Apprenda\acs.exe ConnectCloud -CloudAlias "environment" -user "$Username" -password "$Password"
+
+if (ApplicationExists($ApplicationAlias))
 {
-    VersionApplication $appAlias $verAlias $archive
+    VersionApplication $ApplicationAlias $VersionAlias $VersionName $ArchivePath
 }
 else
 {
-    CreateApplication $appAlias $verAlias $appName $archive
+    CreateApplication $ApplicationAlias $ApplicationName $ArchivePath
 }
 
-acs DisconnectCloud -y
+Write-Host "Disconnecting from Cloud..."
+.\Apprenda\acs.exe DisconnectCloud -y
+
