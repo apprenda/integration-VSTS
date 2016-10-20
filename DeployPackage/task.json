@@ -91,6 +91,14 @@
             "defaultValue": "",
             "required": true,
             "helpMarkDown": "The Cloud Url as configured in Apprenda. (e.g. https://apps.mycloud.myorganization.com)"
+        },
+        { "name": "NewVersionStage",
+            "type": "string",
+            "label": "New Version Stage",
+            "defaultValue": "Published",
+            "required": false,
+            "helpMarkdown":  "The stage (Definition | Sandbox | Published) to place the new version of the application in." 
+              
         }
     ],
     "instanceNameFormat": "Deploy an Apprenda deployment package",
