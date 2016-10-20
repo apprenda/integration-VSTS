@@ -17,6 +17,7 @@ param (
 	[string]$Username,
 	[string]$Password,
 	[string]$CloudUrl,
+	[string]$newVersionStage = "Published"
 	[string]$additionalParams
 )
 
@@ -40,22 +41,22 @@ function ApplicationExists($Alias)
     }
 }
 
-function CreateApplication($ApplicationAlias, $ApplicationName, $ArchivePath)
+function CreateApplication($ApplicationAlias, $ApplicationName, $ArchivePath, $stage)
 {
     Write-Host "Creating Application..."
     Write-Host "Application Alias: $ApplicationAlias" 
     Write-Host "Application Name: $ApplicationName"
     Write-Host "Archive Location: $ArchivePath"
 
-	.\Apprenda\acs.exe NewApplication -appAlias "$ApplicationAlias" -appName "$ApplicationName" -stage "Published" -package "$ArchivePath"
+	.\Apprenda\acs.exe NewApplication -appAlias "$ApplicationAlias" -appName "$ApplicationName" -stage "$stage" -package "$ArchivePath"
 
     Write-Host "Application created"
 }
 
-function VersionApplication($ApplicationAlias, $VersionAlias, $VersionName, $ArchivePath)
+function VersionApplication($ApplicationAlias, $VersionAlias, $VersionName, $ArchivePath, $stage)
 {
     Write-Host "Creating new version..."
-	.\Apprenda\acs.exe NewVersion -appAlias "$ApplicationAlias" -versionAlias "$VersionAlias" -versionName "$VersionName" -stage "Published" -Package "$ArchivePath"
+	.\Apprenda\acs.exe NewVersion -appAlias "$ApplicationAlias" -versionAlias "$VersionAlias" -versionName "$VersionName" -stage "$stage" -Package "$ArchivePath"
 
     Write-Host "New version created"
 }
@@ -65,7 +66,6 @@ function VersionApplication($ApplicationAlias, $VersionAlias, $VersionName, $Arc
 # M A I N
 ##############################################################
 
-Write-Host "Password: $Password"
 
 Write-Host "Registering Cloud [$CloudUrl]..."
 .\Apprenda\acs.exe RegisterCloud -url "$CloudUrl" -alias "environment"
@@ -75,11 +75,11 @@ Write-Host "Connecting to Cloud [$CloudUrl]..."
 
 if (ApplicationExists($ApplicationAlias))
 {
-    VersionApplication $ApplicationAlias $VersionAlias $VersionName $ArchivePath
+    VersionApplication $ApplicationAlias $VersionAlias $VersionName $ArchivePath $newVersionStage
 }
 else
 {
-    CreateApplication $ApplicationAlias $ApplicationName $ArchivePath
+    CreateApplication $ApplicationAlias $ApplicationName $ArchivePath $newVersionStage
 }
 
 Write-Host "Disconnecting from Cloud..."

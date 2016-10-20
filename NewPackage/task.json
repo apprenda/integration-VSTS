@@ -94,10 +94,18 @@
             "name": "Configuration",
             "type": "string",
             "label": "Build Configuration",
-            "defaultValue":  "Release",
+            "defaultValue": "Release",
             "required": false,
-            "helpMarkDown": "The solution file for the solution to package.",
-            "groupName":  "advanced"
+            "helpMarkDown": "The build configuration to be built and packaged.",
+            "groupName": "advanced"
+        },
+        {
+            "name": "AdditionalParameters",
+            "type": "string",
+            "label": "Additional Parameters",
+            "defaultValue": "",
+            "required": "false",
+            "helpMarkDown":  "Any additional parameters to provide to the Apprenda ACS Client during build."      
         }
     ],
     "instanceNameFormat": "Create a new Apprenda deployment package",
