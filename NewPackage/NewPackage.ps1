@@ -34,7 +34,7 @@ param(
 )
 
 $cmd = @"
-& "$PSScriptRoot\Apprenda\acs.exe" NewPackage -Sln "$SolutionPath" -O "$OutputPath" -Config "$Configuration"
+& "$PSScriptRoot\Apprenda\acs.exe" NewPackage -Sln "$SolutionPath" -O "$OutputPath" -Config "$Configuration" 
 "@
 
 if([System.Convert]::ToBoolean($Build))
@@ -82,6 +82,13 @@ if(-not [System.String]::IsNullOrEmpty($WindowsService))
 {
     $cmd += @"
  -WS "$WindowsService"
+"@
+}
+
+if (-not [System.String]::IsNullOrEmpty($additionalParams))
+{
+	$cmd += @"
+	$additionalParams
 "@
 }
 
